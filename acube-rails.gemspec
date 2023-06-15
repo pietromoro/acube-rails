@@ -5,7 +5,7 @@ Gem::Specification.new do |spec|
   spec.version     = ACube::Rails::VERSION
   spec.authors     = ["Pietro Moro"]
   spec.email       = ["pietro@pietromoro.dev"]
-  spec.homepage    = ""
+  spec.homepage    = "https://github.com/pietromoro/acube-rails"
   spec.summary     = "ACube api wrapper for rails"
   spec.description = "ACube api wrapper for rails"
   spec.license     = "MIT"
@@ -15,8 +15,8 @@ Gem::Specification.new do |spec|
   # spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
-  spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
+  spec.metadata["source_code_uri"] = "https://github.com/pietromoro/acube-rails"
+  spec.metadata["changelog_uri"] = "https://github.com/pietromoro/acube-rails/blob/master/CHANGELOG.md"
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]

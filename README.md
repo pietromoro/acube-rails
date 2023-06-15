@@ -1,5 +1,5 @@
 # Acube::Rails
-Short description and motivation.
+Wrapper library around the ACube API for ruby on rails. Quickly set up resources to manage invoices.
 
 ## Usage
 How to use my plugin.
