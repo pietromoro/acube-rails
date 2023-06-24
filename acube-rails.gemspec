@@ -1,4 +1,4 @@
-require_relative "lib/acube/rails/version"
+require_relative "lib/acube/version"
 
 Gem::Specification.new do |spec|
   spec.name        = "acube-rails"
