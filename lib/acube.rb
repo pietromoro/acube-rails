@@ -20,4 +20,6 @@ module ACube
   mattr_accessor :webhook_signature_gpg
   
   mattr_accessor :auth_token_cache_key, default: "__acube__auth__token"
+
+  autoload :Attribute
 end
