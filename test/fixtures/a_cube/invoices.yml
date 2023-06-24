@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  webhook_uuid: MyString
+  status: 1
+  format: 1
+  kind: 1
+  progressive: MyString
+  json_body: MyText
+  xml_body: MyText
+
+two:
+  name: MyString
+  webhook_uuid: MyString
+  status: 1
+  format: 1
+  kind: 1
+  progressive: MyString
+  json_body: MyText
+  xml_body: MyText
