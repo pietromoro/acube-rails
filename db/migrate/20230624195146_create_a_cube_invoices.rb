@@ -31,7 +31,7 @@ class CreateACubeInvoices < ActiveRecord::Migration[7.0]
   
   def down
     drop_table :acube_invoices
-    execute "DROP SEQUENCE IF EXISTS acube_invoices_progressive_seq CASCADE"
+    execute "DROP SEQUENCE IF EXISTS acube_invoices_progressive_seq;"
   end
 
 private
