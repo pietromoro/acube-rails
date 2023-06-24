@@ -2,7 +2,7 @@ require_relative "lib/acube/rails/version"
 
 Gem::Specification.new do |spec|
   spec.name        = "acube-rails"
-  spec.version     = ACube::Rails::VERSION
+  spec.version     = ACube::VERSION
   spec.authors     = ["Pietro Moro"]
   spec.email       = ["pietro@pietromoro.dev"]
   spec.homepage    = "https://github.com/pietromoro/acube-rails"
