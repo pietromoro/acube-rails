@@ -25,6 +25,24 @@ module ACube
   mattr_accessor :auth_token_cache_key, default: "__acube__auth__token"
 
   autoload :Attribute
+
+  module Endpoint
+    extend ActiveSupport::Autoload
+
+    autoload :CommonBase
+    autoload :ItApiBase
+
+    autoload :Auth
+    autoload :Invoices
+  end
+
+  module Consumer
+    autoload :Model, "acube/concerns/consumer"
+  end
+
+  module Supplier
+    autoload :Model, "acube/concerns/supplier"
+  end
 end
 
 loader = Zeitwerk::Loader.for_gem
