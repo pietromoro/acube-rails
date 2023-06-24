@@ -1,5 +1,9 @@
 class CreateACubeInvoices < ActiveRecord::Migration[7.0]
-  def change
+  def up
+    if connection.adapter_name.downcase != 'postgresql'
+      raise "This migration is only compatible with PostgreSQL at the moment."
+    end
+
     primary_key_type, foreign_key_type = primary_and_foreign_key_types
 
     create_table :acube_invoices, id: primary_key_type do |t|
@@ -19,6 +23,15 @@ class CreateACubeInvoices < ActiveRecord::Migration[7.0]
       t.index [ :record_type, :record_id, :name ], name: "index_acube_rails_acube_invoices_uniqueness", unique: true
       t.index :progressive, unique: true
     end
+
+    execute <<-SQL
+      CREATE SEQUENCE acube_invoices_progressive_seq START 1 INCREMENT 1 OWNED BY acube_invoices.progressive;
+    SQL
+  end
+  
+  def down
+    drop_table :acube_invoices
+    execute "DROP SEQUENCE IF EXISTS acube_invoices_progressive_seq CASCADE"
   end
 
 private
