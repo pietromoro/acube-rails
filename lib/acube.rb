@@ -4,6 +4,8 @@ require "active_support/rails"
 require "acube/version"
 require "acube/engine"
 
+require "zeitwerk"
+
 module ACube
   extend ActiveSupport::Autoload
 
@@ -24,3 +26,10 @@ module ACube
 
   autoload :Attribute
 end
+
+loader = Zeitwerk::Loader.for_gem
+loader.inflector.inflect(
+  "acube" => "ACube",
+  "acube_api" => "ACubeAPI"
+)
+loader.setup
