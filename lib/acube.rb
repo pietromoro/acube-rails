@@ -32,6 +32,10 @@ module ACube
   mattr_accessor :transmission_nation_id, default: "IT"
   mattr_accessor :transmission_id_code, default: "10442360961"
 
+  def self.configure
+    yield(self)
+  end
+
   autoload :Attribute
   autoload :SignatureChecker
 
