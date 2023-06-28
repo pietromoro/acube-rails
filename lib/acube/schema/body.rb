@@ -1,13 +1,24 @@
 module ACube
   module Schema
     class Body
-      attr_accessor :document_kind, :date, :progressive
+      attr_accessor :document_kind, :date
       attr_accessor :total_price
       attr_accessor :connected_progressive
       attr_accessor :description
       attr_accessor :quantity
+      attr_reader :progressive
 
       def self.from(invoice)
+        new.tap do |body|
+          body.transaction_data.each do |key, value|
+            value = value.is_a?(Symbol) ? body.send(value).to_s : value.to_s
+            body.send("#{key}=", value)
+          end
+        end
+      end
+
+      def set_progressive(progressive)
+        @progressive = progressive
       end
       
       def to_xml

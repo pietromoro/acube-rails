@@ -9,12 +9,13 @@ module ACube
         @body = body
       end
 
-      def fill_with(transmission_format: "FPR12", progressive:)
+      def fill_with(transmission_format:, progressive:)
         @transmission_format = transmission_format
         @progressive = progressive
 
         header.transmission_format = transmission_format
         header.progressive = progressive
+        body.set_progressive(progressive)
       end
 
       def to_xml
