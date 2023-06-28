@@ -66,17 +66,9 @@ module ACube
     autoload :Document
   end
 
-  module Customer
-    autoload :Model, "acube/concerns/customer"
-  end
-
-  module Supplier
-    autoload :Model, "acube/concerns/supplier"
-  end
-
-  module Transaction
-    autoload :Model, "acube/concerns/transaction"
-  end
+  autoload :Customer
+  autoload :Supplier
+  autoload :Transaction
 end
 
 loader = Zeitwerk::Loader.for_gem

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    acube-rails (0.0.1)
+    acube-rails (0.0.2)
       faraday (~> 2.7, >= 2.7.6)
       rails (>= 7.0.0)
 
