@@ -39,6 +39,15 @@ module ACube
     autoload :Invoices
   end
 
+  module Schema
+    module Header
+      extend ActiveSupport::Autoload
+
+      autoload :Supplier
+      autoload :Customer
+    end
+  end
+
   module Consumer
     autoload :Model, "acube/concerns/consumer"
   end
