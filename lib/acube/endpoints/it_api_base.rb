@@ -8,7 +8,7 @@ module ACube
           url: ACube.invoice_endpoint,
           headers: {
             'Content-Type' => 'application/xml',
-            'Authentication' => 'Bearer ' + ACube::Endpoint::Auth.new.token!,
+            'Authorization' => 'Bearer ' + ACube::Endpoint::Auth.new.token!,
             'X-SendAsync' => 'true'
           }
         )
