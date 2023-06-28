@@ -6,6 +6,11 @@ module ACube
 
     belongs_to :record, polymorphic: true, touch: true
     has_one_attached :pdf
+
+    enum format: %i[ FPA12 FPR12 ]
+    enum kind: %i[ TD01 TD02 TD03 TD04 TD05 TD06 TD16 TD17 TD18 TD19 TD20 TD21 TD22 TD23 TD24 TD25 TD26 TD27 TD28 ]
+
+    enum status: { error: -1, created: 0, sent: 1, accepted: 2, rejected: 3 }
   end
 end
 
