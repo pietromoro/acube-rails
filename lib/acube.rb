@@ -26,6 +26,9 @@ module ACube
 
   mattr_accessor :progressive_string, default: -> (number) { "#{number}" }
 
+  mattr_accessor :transmission_nation_id, default: "IT"
+  mattr_accessor :transmission_id_code, default: "10442360961"
+
   autoload :Attribute
   autoload :SignatureChecker
 
