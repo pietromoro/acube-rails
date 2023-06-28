@@ -4,7 +4,6 @@ module ACube
       extend ActiveSupport::Concern
       cattr_accessor(:supplier_data) { {} }
 
-      
       class SupplierBuilder
         @@attributes = ACube::Schema::Header::Supplier.instance_methods.select {|m| m.ends_with?("=") && m.starts_with?(/\w/) }
         @supplier_data = {}
