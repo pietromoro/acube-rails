@@ -2,6 +2,20 @@ module ACube
   module Schema
     class Document
       attr_accessor :body, :header
+      attr_accessor :progressive, :transmission_format
+
+      def initialize(header, body)
+        @header = header
+        @body = body
+      end
+
+      def fill_with(transmission_format: "FPR12", progressive:)
+        @transmission_format = transmission_format
+        @progressive = progressive
+
+        header.transmission_format = transmission_format
+        header.progressive = progressive
+      end
 
       def to_xml
         Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|

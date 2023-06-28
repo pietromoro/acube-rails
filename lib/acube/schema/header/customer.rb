@@ -7,10 +7,12 @@ module ACube
         attr_accessor :first_name, :last_name, :denomination, :title, :eori_code
         attr_accessor :address, :civic_number, :zip, :city, :province, :nation
 
-        def from(supplier)
-          supplier.supplier_data.each do |key, value|
-            value = value.is_a?(Symbol) ? supplier.send(value).to_s : value.to_s
-            send("#{key}=", value)
+        def self.from(customer)
+          new.tap do |cust|
+            customer.customer_data.each do |key, value|
+              value = value.is_a?(Symbol) ? customer.send(value).to_s : value.to_s
+              cust.send("#{key}=", value)
+            end
           end
         end
 
@@ -21,14 +23,21 @@ module ACube
               xml.DatiAnagrafici {
                 xml.CodiceFiscale fiscal_code
                 xml.Anagrafica {
-                  xml.Nome first_name
-                  xml.Cognome last_name
+                  if (first_name && last_name)
+                    xml.Nome first_name
+                    xml.Cognome last_name
+                  else
+                    xml.Denominazione denomination
+                  end
+                  xml.Titolo title if title
+                  xml.CodEORI eori_code if eori_code
                 }
               }
               xml.Sede {
                 xml.Indirizzo address
-                xml.NumeroCivico civic_number
+                xml.NumeroCivico civic_number if civic_number
                 xml.CAP zip
+                xml.Comune city
                 xml.Provincia province
                 xml.Nazione nation
               }

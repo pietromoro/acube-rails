@@ -2,15 +2,13 @@ module ACube
   module Schema
     module Header
       class Header
-        TRANSMISSION_FORMATS = %w[FPR12]
         attr_accessor :supplier, :customer
         attr_accessor :transmission_format
+        attr_accessor :progressive
 
-        def initialize(supplier, customer, format)
+        def initialize(supplier, customer)
           @supplier = supplier
           @customer = customer
-          raise ArgumentError.new("Format #{format} is unknown") unless TRANSMISSION_FORMATS.include?(format)
-          @transmission_format = format
         end
 
         def to_xml
@@ -22,6 +20,7 @@ module ACube
                   xml.IdPaese ACube.transmission_nation_id
                   xml.IdCodice ACube.transmission_id_code
                 }
+                xml.ProgressivoInvio progressive
                 xml.FormatoTrasmissione transmission_format
                 xml.CodiceDestinatario "0000000"
                 xml << supplier.to_xml.to_xml

@@ -28,6 +28,7 @@ module ACube
   mattr_accessor :auth_token_cache_key, default: "__acube__auth__token"
 
   mattr_accessor :progressive_string, default: -> (number) { "#{number}" }
+  mattr_accessor :vat_amount, default: 0.22
 
   mattr_accessor :transmission_nation_id, default: "IT"
   mattr_accessor :transmission_id_code, default: "10442360961"
