@@ -4,7 +4,7 @@ module ACube
     attr_accessor :header, :document
 
     def self.from(supplier:, customer:, invoice:, format: :FPR12)
-      ACube::InvoiceRecord.formats.include?(format) || raise "Format #{format} not supported"
+      raise "Format #{format} not supported" unless ACube::InvoiceRecord.formats.include?(format)
       new(supplier, customer, invoice, format)
     end
 
