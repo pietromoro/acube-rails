@@ -39,6 +39,7 @@ module ACube
 
   autoload :Attribute
   autoload :SignatureChecker
+  autoload :Invoicer
 
   module Endpoint
     extend ActiveSupport::Autoload
