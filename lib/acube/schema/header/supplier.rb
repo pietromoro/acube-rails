@@ -19,7 +19,29 @@ module ACube
         end
 
         def to_xml
-
+          fragment = Nokogiri::XML::DocumentFragment.new(Nokogiri::XML::Document.new)
+          Nokogiri::XML::Builder.with(fragment) do |xml|
+            xml.CedentePrestatore {
+              xml.DatiAnagrafici {
+                xml.IdFiscaleIVA {
+                  xml.IdPaese id_nation
+                  xml.IdCodice id_tax_code
+                }
+                xml.Anagrafica {
+                  xml.Denominazione denomination
+                }
+                xml.RegimeFiscale fiscal_regime
+              }
+              xml.Sede {
+                xml.Indirizzo address
+                xml.NumeroCivico civic_number
+                xml.CAP zip
+                xml.Comune city
+                xml.Provincia province
+                xml.Nazione nation
+              }
+            }
+          end
         end
       end
     end
