@@ -8,7 +8,7 @@ module ACube
       source_root File.expand_path('templates', __dir__)
 
       def create_migrations
-        rails_command "railties:install:migrations FROM=active_storage,acube", inline: true
+        rails_command "railties:install:migrations FROM=active_storage,a_cube", inline: true
       end
     end
   end
