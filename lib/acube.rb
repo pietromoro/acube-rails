@@ -27,6 +27,7 @@ module ACube
   mattr_accessor :progressive_string, default: -> (number) { "#{number}" }
 
   autoload :Attribute
+  autoload :SignatureChecker
 
   module Endpoint
     extend ActiveSupport::Autoload
