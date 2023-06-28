@@ -22,6 +22,7 @@ class CreateACubeInvoiceRecords < ActiveRecord::Migration[7.0]
 
       t.index [ :record_type, :record_id, :name ], name: "index_acube_rails_acube_invoice_records_uniqueness", unique: true
       t.index :progressive, unique: true
+      t.index :webhook_uuid, unique: true
     end
 
     execute <<-SQL
