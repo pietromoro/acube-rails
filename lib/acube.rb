@@ -66,8 +66,8 @@ module ACube
     autoload :Document
   end
 
-  module Consumer
-    autoload :Model, "acube/concerns/consumer"
+  module Customer
+    autoload :Model, "acube/concerns/customer"
   end
 
   module Supplier

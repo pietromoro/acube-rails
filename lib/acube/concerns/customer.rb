@@ -2,24 +2,24 @@ module ACube
   module Consumer
     module Model
       extend ActiveSupport::Concern
-      cattr_accessor(:consumer_data) { {} }
+      cattr_accessor(:customer_data) { {} }
 
-      class ConsumerBuilder
-        @@attributes = ACube::Schema::Header::consumer.instance_methods.select {|m| m.ends_with?("=") && m.starts_with?(/\w/) }
-        @consumer_data = {}
+      class CustomerBuilder
+        @@attributes = ACube::Schema::Header::Customer.instance_methods.select {|m| m.ends_with?("=") && m.starts_with?(/\w/) }
+        @customer_data = {}
 
         def initialize
-          @consumer_data = {}
+          @customer_data = {}
         end
 
         def finalize
-          @consumer_data
+          @customer_data
         end
         
         def method_missing(method, value)
           if (@@attributes.include?(method))
-            @consumer_data[method[0..-2]] = value
-            puts @consumer_data
+            @customer_data[method[0..-2]] = value
+            puts @customer_data
           else
             super 
           end
@@ -29,9 +29,9 @@ module ACube
       class_methods do
       protected
         def as_consumer(&block)
-          config = ConsumerBuilder.new
+          config = CustomerBuilder.new
           yield(config)
-          consumer_data = config.finalize
+          customer_data = config.finalize
         end
       end
 
