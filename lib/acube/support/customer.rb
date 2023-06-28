@@ -19,7 +19,6 @@ module ACube
         def method_missing(method, value)
           if (@@attributes.include?(method))
             @customer_data[method[0..-2]] = value
-            puts @customer_data
           else
             super 
           end
@@ -36,7 +35,7 @@ module ACube
       end
 
       def to_customer
-        ACube::Schema::Header::Customer.new.from(self)
+        ACube::Schema::Header::Customer.from(self)
       end
     end
   end

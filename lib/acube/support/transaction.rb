@@ -19,7 +19,6 @@ module ACube
         def method_missing(method, value)
           if (@@attributes.include?(method))
             @transaction_data[method[0..-2]] = value
-            puts @transaction_data
           else
             super 
           end
@@ -36,7 +35,7 @@ module ACube
       end
 
       def to_transaction
-        ACube::Schema::Body.new.from(self)
+        ACube::Schema::Body.from(self)
       end
     end
   end

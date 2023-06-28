@@ -19,7 +19,6 @@ module ACube
         def method_missing(method, value)
           if (@@attributes.include?(method))
             @supplier_data[method[0..-2]] = value
-            puts @supplier_data
           else
             super 
           end
@@ -36,7 +35,7 @@ module ACube
       end
 
       def to_supplier
-        ACube::Schema::Header::Supplier.new.from(self)
+        ACube::Schema::Header::Supplier.from(self)
       end
     end
   end
