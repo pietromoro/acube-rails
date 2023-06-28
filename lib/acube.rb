@@ -80,6 +80,7 @@ module ACube
 end
 
 loader = Zeitwerk::Loader.for_gem
+loader.ignore("#{__dir__}/generators")
 loader.inflector.inflect(
   "acube" => "ACube",
   "acube_api" => "ACubeAPI"
