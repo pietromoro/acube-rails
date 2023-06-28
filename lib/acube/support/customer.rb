@@ -1,6 +1,6 @@
 module ACube
-  module Consumer
-    module Model
+  module Support
+    module Customer
       extend ActiveSupport::Concern
       cattr_accessor(:customer_data) { {} }
 

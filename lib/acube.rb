@@ -66,15 +66,18 @@ module ACube
     autoload :Document
   end
 
-  autoload :Customer
-  autoload :Supplier
-  autoload :Transaction
+  module Support
+    extend ActiveSupport::Autoload
+
+    autoload :Customer
+    autoload :Supplier
+    autoload :Transaction
+  end
 end
 
 loader = Zeitwerk::Loader.for_gem
 loader.ignore("#{__dir__}/generators")
 loader.inflector.inflect(
-  "acube" => "ACube",
-  "acube_api" => "ACubeAPI"
+  "acube" => "ACube"
 )
 loader.setup

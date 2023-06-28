@@ -1,6 +1,6 @@
 module ACube
-  module Supplier
-    module Model
+  module Support
+    module Supplier
       extend ActiveSupport::Concern
       cattr_accessor(:supplier_data) { {} }
 

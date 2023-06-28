@@ -1,6 +1,6 @@
 module ACube
-  module Transaction
-    class Model
+  module Support
+    class Transaction
       extend ActiveSupport::Concern
       cattr_accessor(:transaction_data) { {} }
 
