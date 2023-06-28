@@ -1,3 +1,5 @@
+require 'stringio'
+
 module ACube
   class Invoicer
     attr_accessor :supplier, :customer, :invoice
@@ -32,7 +34,8 @@ module ACube
       invoice_record.update_column(:json_body, json_body)
       
       downloaded_pdf = ACube::Endpoint::Invoices.new.download(invoice_id)
-      invoice_record.pdf.attach(io: downloaded_pdf, filename: "invoice.pdf")
+      downloaded_io = StringIO.new(downloaded_pdf.body)
+      invoice_record.pdf.attach(io: downloaded_io, filename: "invoice.pdf")
       invoice_record.update_column(:status, :downloaded)
     end
 
