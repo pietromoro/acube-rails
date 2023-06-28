@@ -1,3 +1,5 @@
+require 'faraday'
+
 module ACube
   module Endpoint
     class ItApiBase
