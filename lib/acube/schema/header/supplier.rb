@@ -11,8 +11,15 @@ module ACube
         attr_accessor :fiscal_regime
         attr_accessor :address, :civic_number, :zip, :city, :province, :nation
 
+        def from(supplier)
+          supplier.supplier_data.each do |key, value|
+            value = value.is_a?(Symbol) ? supplier.send(value).to_s : value.to_s
+            send("#{key}=", value)
+          end
+        end
+
         def to_xml
-          
+
         end
       end
     end
