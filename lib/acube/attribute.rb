@@ -6,16 +6,29 @@ module ACube
       def has_invoice(name, strict_loading: strict_loading_by_default)
         class_eval <<-CODE, __FILE__, __LINE__ + 1
           def #{name}
-            invoice_#{name} || build_invoice_#{name}
+            invoice_record_#{name} || build_invoice_record_#{name}
+          end
+
+          def publish_#{name}!(supplier, customer, format)
+            builder = ACube::Invoicer.from(supplier: supplier, customer: customer, invoice: self, format: format)
+            builder.create_invoice("#{name}")
           end
 
           def #{name}?
-            invoice_#{name}.present?
+            invoice_record_#{name}.present?
           end
         CODE
         
         include ACube::Transaction::Model
-        has_one :"invoice_#{name}", -> { where(name: name) }, class_name: 'ACube::InvoiceRecord', as: :record, inverse_of: :record, autosave: true, dependent: :destroy, strict_loading: strict_loading
+        has_one :"invoice_record_#{name}", -> { where(name: name) }, class_name: 'ACube::InvoiceRecord', as: :record, inverse_of: :record, autosave: true, dependent: :destroy, strict_loading: strict_loading
+      end
+
+      def with_all_invoice_records
+        eager_load(invoice_record_association_names)
+      end
+
+      def invoice_record_association_names
+        reflect_on_all_associations(:has_one).collect(&:name).select { |n| n.start_with?("invoice_record_") }
       end
     end
   end
