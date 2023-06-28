@@ -12,7 +12,7 @@ module ACube
 
         if response.success?
           token = JSON.parse(response.body).token
-          Rails.cache.write(ACube.auth_token_cache_key, token)
+          Rails.cache.write(ACube.auth_token_cache_key, token, expires_in: 20.hours)
           return token
         else
           raise "Login failed"
