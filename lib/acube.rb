@@ -12,6 +12,9 @@ module ACube
   mattr_accessor :invoice_endpoint
   mattr_accessor :common_endpoint
 
+  mattr_accessor :username
+  mattr_accessor :password
+
   mattr_accessor :invoice_base_class, default: "ApplicationRecord"
   
   mattr_accessor :webhook_base_class, default: "ApplicationController"
@@ -43,12 +46,18 @@ module ACube
   end
 
   module Schema
+    extend ActiveSupport::Autoload
+
     module Header
       extend ActiveSupport::Autoload
 
       autoload :Supplier
       autoload :Customer
+      autoload :Header
     end
+
+    autoload :Body
+    autoload :Document
   end
 
   module Consumer
