@@ -1,4 +1,6 @@
-# desc "Explaining what the task does"
-# task :acube_rails do
-#   # Task goes here
-# end
+# frozen_string_literal: true
+
+desc "Copy over the migration"
+task "acube:install" do
+  Rails::Command.invoke :generate, ["acube:install"]
+end
