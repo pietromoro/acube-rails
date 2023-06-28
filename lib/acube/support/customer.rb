@@ -28,15 +28,15 @@ module ACube
 
       class_methods do
       protected
-        def as_consumer(&block)
+        def as_customer(&block)
           config = CustomerBuilder.new
           yield(config)
           customer_data = config.finalize
         end
       end
 
-      def to_consumer
-        ACube::Schema::Header::Consumer.new.from(self)
+      def to_customer
+        ACube::Schema::Header::Customer.new.from(self)
       end
     end
   end
