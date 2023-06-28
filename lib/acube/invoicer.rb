@@ -1,5 +1,3 @@
-require 'stringio'
-
 module ACube
   class Invoicer
     attr_accessor :supplier, :customer, :invoice
@@ -13,7 +11,7 @@ module ACube
     def create_invoice(name)
       progressive_val = ACube::InvoiceRecord.connection.execute("SELECT nextval('acube_invoice_records_progressive_seq') FROM acube_invoice_records_progressive_seq").first["nextval"]
       progressive_string = ACube.progressive_string.call(progressive_val)
-      document.fill_with(transmission_format: :FPR12, progressive: progressive_string)
+      document.fill_with(transmission_format: @format, progressive: progressive_string)
 
       invoice_record = ACube::InvoiceRecord.create!(
         record: invoice_base_record,
@@ -25,8 +23,13 @@ module ACube
         xml_body: document.to_xml,
       )
 
-      uuid = ACube::Endpoint::Invoices.new.create(document)
-      invoice_record.update_column(:webhook_uuid, uuid)
+      begin
+        uuid = ACube::Endpoint::Invoices.new.create(document)
+        invoice_record.update_column(:webhook_uuid, uuid)
+      rescue => e
+        invoice_record.update_column(:status, :error)
+        raise e
+      end
     end
 
     def udate_invoice_attributes(invoice_id, json_body, pdf_url)
@@ -34,8 +37,7 @@ module ACube
       invoice_record.update_column(:json_body, json_body)
       
       downloaded_pdf = ACube::Endpoint::Invoices.new.download(invoice_id)
-      downloaded_io = StringIO.new(downloaded_pdf.body)
-      invoice_record.pdf.attach(io: downloaded_io, filename: "invoice.pdf")
+      invoice_record.pdf.attach(io: downloaded_pdf, filename: "invoice.pdf")
       invoice_record.update_column(:status, :downloaded)
     end
 

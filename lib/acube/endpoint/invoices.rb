@@ -15,10 +15,16 @@ module ACube
       end
 
       def download(uuid)
-        connection.get do |req|
+        response = connection.get do |req|
           req.url "/invoices/#{uuid}"
           req.headers['Content-Type'] = 'application/pdf'
           req.headers['X-PrintTheme'] = 'standard'
+        end
+
+        if response.success?
+          return StringIO.new(response.body)
+        else
+          raise "Invoice download failed"
         end
       end
     end
