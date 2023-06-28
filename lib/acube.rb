@@ -24,6 +24,8 @@ module ACube
   
   mattr_accessor :auth_token_cache_key, default: "__acube__auth__token"
 
+  mattr_accessor :progressive_string, default: -> (number) { "#{number}" }
+
   autoload :Attribute
 
   module Endpoint
