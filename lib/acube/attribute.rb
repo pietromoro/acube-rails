@@ -13,7 +13,8 @@ module ACube
             invoice_#{name}.present?
           end
         CODE
-
+        
+        include ACube::Transaction::Model
         has_one :"invoice_#{name}", -> { where(name: name) }, class_name: 'ACube::InvoiceRecord', as: :record, inverse_of: :record, autosave: true, dependent: :destroy, strict_loading: strict_loading
       end
     end

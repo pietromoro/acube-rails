@@ -67,6 +67,10 @@ module ACube
   module Supplier
     autoload :Model, "acube/concerns/supplier"
   end
+
+  module Transaction
+    autoload :Model, "acube/concerns/transaction"
+  end
 end
 
 loader = Zeitwerk::Loader.for_gem
