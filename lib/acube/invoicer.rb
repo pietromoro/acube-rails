@@ -1,5 +1,3 @@
-require 'open-uri'
-
 module ACube
   class Invoicer
     attr_accessor :supplier, :customer, :invoice
@@ -30,16 +28,16 @@ module ACube
     end
 
     def udate_invoice_attributes(invoice_id, json_body, pdf_url)
-      invoice_record = ACube::InvoiceRecord.find(invoice_id)
+      invoice_record = ACube::InvoiceRecord.find_by(webhook_uuid: invoice_id)
       invoice_record.update_column(:json_body, json_body)
       
-      downloaded_pdf = open(pdf_url)
-      invoice_record.pdf.attach(io: downloaded_pdf  , filename: "invoice.pdf")
+      downloaded_pdf = ACube::Endpoint::Invoices.new.download(invoice_id)
+      invoice_record.pdf.attach(io: downloaded_pdf, filename: "invoice.pdf")
       invoice_record.update_column(:status, :downloaded)
     end
 
     def update_invoice_status(invoice_id)
-      invoice_record = ACube::InvoiceRecord.find(invoice_id)
+      invoice_record = ACube::InvoiceRecord.find_by(webhook_uuid: invoice_id)
       invoice_record.update_column(:status, notification["status"])
     end
 
