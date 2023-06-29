@@ -10,8 +10,8 @@ module ACube
 
       def self.from(invoice)
         new.tap do |body|
-          body.transaction_data.each do |key, value|
-            value = value.is_a?(Symbol) ? body.send(value).to_s : value.to_s
+          invoice.transaction_data.each do |key, value|
+            value = value.is_a?(Symbol) ? invoice.send(value).to_s : value.to_s
             body.send("#{key}=", value)
           end
         end
