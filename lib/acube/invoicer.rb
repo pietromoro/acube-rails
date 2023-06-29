@@ -12,6 +12,7 @@ module ACube
       progressive_val = ACube::InvoiceRecord.connection.execute("SELECT nextval('acube_invoice_records_progressive_seq') FROM acube_invoice_records_progressive_seq").first["nextval"]
       progressive_string = ACube.progressive_string.call(progressive_val)
       document.fill_with(transmission_format: @format, progressive: progressive_string)
+      xml_body = document.to_xml
 
       invoice_record = ACube::InvoiceRecord.create!(
         record: invoice_base_record,
@@ -20,11 +21,11 @@ module ACube
         kind: invoice.document_kind,
         status: :created,
         progressive: progressive_string,
-        xml_body: document.to_xml,
+        xml_body: xml_body,
       )
 
       begin
-        uuid = ACube::Endpoint::Invoices.new.create(document)
+        uuid = ACube::Endpoint::Invoices.new.create(xml_body)
         invoice_record.update_column(:webhook_uuid, uuid)
       rescue => e
         invoice_record.update_column(:status, :error)
