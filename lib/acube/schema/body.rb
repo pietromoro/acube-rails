@@ -11,7 +11,7 @@ module ACube
       def self.from(invoice)
         new.tap do |body|
           invoice.transaction_data.each do |key, value|
-            value = value.is_a?(Symbol) ? invoice.send(value).to_s : value.to_s
+            value = value.is_a?(Symbol) ? invoice.send(value) : value
             body.send("#{key}=", value)
           end
         end
