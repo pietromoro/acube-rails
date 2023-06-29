@@ -2,6 +2,7 @@ require "active_support"
 require "active_support/rails"
 
 require "acube/version"
+require "acube/engine"
 
 require "zeitwerk"
 
