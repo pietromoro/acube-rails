@@ -32,7 +32,7 @@ module ACube
       end
     end
 
-    def udate_invoice_attributes(invoice_id, json_body, pdf_url)
+    def self.udate_invoice_attributes(invoice_id, json_body)
       invoice_record = ACube::InvoiceRecord.find_by(webhook_uuid: invoice_id)
       invoice_record.update_column(:json_body, json_body)
       
@@ -41,7 +41,7 @@ module ACube
       invoice_record.update_column(:status, :downloaded)
     end
 
-    def update_invoice_status(invoice_id)
+    def self.update_invoice_status(invoice_id)
       invoice_record = ACube::InvoiceRecord.find_by(webhook_uuid: invoice_id)
       invoice_record.update_column(:status, notification["status"])
     end
