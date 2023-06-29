@@ -8,6 +8,7 @@ module ACube
       attr_accessor :quantity
       attr_accessor :causal
       attr_accessor :payment_max_date
+      attr_accessor :payment_terms, :payment_method
       attr_reader :progressive
 
       def self.from(invoice)
@@ -36,7 +37,7 @@ module ACube
                 xml.Causale causal if causal
               }
 
-              if (document_kind == :TD01 || document_kind == :TD04)
+              if (document_kind == :TD04)
                 xml.DatiFattureCollegate {
                   xml.IdDocumento connected_progressive
                 }
@@ -47,26 +48,26 @@ module ACube
               xml.DettaglioLinee {
                 xml.NumeroLinea 1
                 xml.Descrizione description
-                xml.Quantita quantity.to_f.to_s
-                xml.PrezzoUnitario unitary_price
-                xml.PrezzoTotale price_no_vat
-                xml.AliquotaIVA ACube.vat_amount * 100
+                xml.Quantita ("%f" % quantity.to_f)
+                xml.PrezzoUnitario ("%f" % unitary_price.to_f)
+                xml.PrezzoTotale ("%f" % price_no_vat.to_f)
+                xml.AliquotaIVA ("%f" % (ACube.vat_amount * 100).to_f)
               }
 
               xml.DatiRiepilogo {
-                xml.AliquotaIVA ACube.vat_amount * 100
-                xml.ImponibileImporto unitary_price
-                xml.Imposta vat_amount
+                xml.AliquotaIVA ("%f" % (ACube.vat_amount * 100).to_f)
+                xml.ImponibileImporto ("%f" % unitary_price.to_f)
+                xml.Imposta ("%f" % vat_amount.to_f)
                 xml.EsigibilitaIVA "I"
               }
             }
 
             xml.DatiPagamento {
-              xml.CondizioniPagamento "TP02"
+              xml.CondizioniPagamento payment_terms
               xml.DettaglioPagamento {
-                xml.ModalitaPagamento "MP05"
+                xml.ModalitaPagamento payment_method
                 xml.DataScadenzaPagamento payment_max_date.strftime("%Y-%m-%d")
-                xml.ImportoPagamento total_price
+                xml.ImportoPagamento ("%f" % total_price.to_f)
               }
             }
           }
