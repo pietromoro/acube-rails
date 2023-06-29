@@ -1,6 +1,6 @@
 module ACube
   module Support
-    class Transaction
+    module Transaction
       extend ActiveSupport::Concern
       cattr_reader :transaction_data
 
