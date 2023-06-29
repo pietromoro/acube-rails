@@ -6,7 +6,7 @@ require "active_storage/engine"
 require "acube"
 
 module ACube
-  class Engine < Rails::Engine
+  class Engine < ::Rails::Engine
     isolate_namespace ACube
     config.eager_load_namespaces << ACube
 

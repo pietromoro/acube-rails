@@ -3,7 +3,7 @@ module ACube
     extend ActiveSupport::Concern
 
     class_methods do
-      def has_invoice(name, strict_loading: strict_loading_by_default)
+      def has_one_invoice(name, strict_loading: strict_loading_by_default)
         class_eval <<-CODE, __FILE__, __LINE__ + 1
           def #{name}
             invoice_record_#{name} || build_invoice_record_#{name}
