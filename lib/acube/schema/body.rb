@@ -28,7 +28,7 @@ module ACube
               xml.DatiGeneraliDocumento {
                 xml.TipoDocumento document_kind
                 xml.Divisa "EUR"
-                xml.Data date.strfy_time("%Y-%m-%d")
+                xml.Data date.strftime("%Y-%m-%d")
                 xml.Numero progressive
                 xml.ImportoTotaleDocumento total_price
                 xml.Causale causal
