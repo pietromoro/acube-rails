@@ -56,7 +56,7 @@ module ACube
 
               xml.DatiRiepilogo {
                 xml.AliquotaIVA ("%.2f" % (ACube.vat_amount * 100).to_f)
-                xml.ImponibileImporto ("%f" % unitary_price.to_f)
+                xml.ImponibileImporto ("%f" % price_no_vat.to_f)
                 xml.Imposta ("%f" % vat_amount.to_f)
                 xml.EsigibilitaIVA "I"
               }
