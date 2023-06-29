@@ -51,11 +51,11 @@ module ACube
                 xml.Quantita ("%f" % quantity.to_f)
                 xml.PrezzoUnitario ("%f" % unitary_price.to_f)
                 xml.PrezzoTotale ("%f" % price_no_vat.to_f)
-                xml.AliquotaIVA ("%f" % (ACube.vat_amount * 100).to_f)
+                xml.AliquotaIVA ("%.2f" % (ACube.vat_amount * 100).to_f)
               }
 
               xml.DatiRiepilogo {
-                xml.AliquotaIVA ("%f" % (ACube.vat_amount * 100).to_f)
+                xml.AliquotaIVA ("%.2f" % (ACube.vat_amount * 100).to_f)
                 xml.ImponibileImporto ("%f" % unitary_price.to_f)
                 xml.Imposta ("%f" % vat_amount.to_f)
                 xml.EsigibilitaIVA "I"
