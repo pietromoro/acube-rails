@@ -30,7 +30,7 @@ module ACube
             xml << header.to_xml
             xml << body.to_xml
           end
-        end
+        end.to_xml
       end
     end
   end
