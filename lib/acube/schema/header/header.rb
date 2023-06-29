@@ -12,8 +12,7 @@ module ACube
         end
 
         def to_xml
-          fragment = Nokogiri::XML::DocumentFragment.new(Nokogiri::XML::Document.new)
-          Nokogiri::XML::Builder.with(fragment) do |xml|
+          Nokogiri::XML::Builder.new do |xml|
             xml.FatturaElettronicaHeader {
               xml.DatiTrasmissione {
                 xml.IdTrasmittente {
@@ -27,7 +26,7 @@ module ACube
                 xml << customer.to_xml
               }
             }
-          end
+          end.to_xml(save_with: 2)
         end
       end
     end
