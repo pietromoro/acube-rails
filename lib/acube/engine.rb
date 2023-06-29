@@ -10,7 +10,7 @@ module ACube
     isolate_namespace ACube
     config.eager_load_namespaces << ACube
 
-    config.autoload_once_paths = %W(
+    config.autoload_paths = %W(
       #{root}/app/models
     )
 
