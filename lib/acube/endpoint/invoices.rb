@@ -8,7 +8,7 @@ module ACube
         end
 
         if response.success?
-          return JSON.parse(response.body).uuid
+          return JSON.parse(response.body)["uuid"]
         else
           raise "Invoice creation failed"
         end
