@@ -3,6 +3,8 @@ require "active_record/railtie"
 require "action_controller/railtie"
 require "active_storage/engine"
 
+require "acube"
+
 module ACube
   class Engine < ::Rails::Engine
     isolate_namespace ACube
