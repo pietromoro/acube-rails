@@ -4,7 +4,7 @@ module ACube
       def create(invoice_xml)
         response = connection.post do |req|
           req.url "/invoices"
-          req.body = invoice_xmls
+          req.body = invoice_xml
         end
 
         if response.success?
