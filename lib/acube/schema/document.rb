@@ -27,8 +27,8 @@ module ACube
             "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
             "xsi:schemaLocation" => "http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2 http://www.fatturapa.gov.it/export/fatturazione/sdi/fatturapa/v1.2/Schema_del_file_xml_FatturaPA_versione_1.2.xsd"
           ) do
-            xml << header.to_xml.to_xml
-            xml << body.to_xml.to_xml
+            xml << header.to_xml
+            xml << body.to_xml
           end
         end
       end

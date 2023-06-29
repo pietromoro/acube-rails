@@ -22,8 +22,7 @@ module ACube
       end
       
       def to_xml
-        fragment = Nokogiri::XML::DocumentFragment.new(Nokogiri::XML::Document.new)
-        Nokogiri::XML::Builder.with(fragment) do |xml|
+        Nokogiri::XML::Builder.new do |xml|
           xml.FatturaElettronicaBody {
             xml.DatiGenerali {
               xml.DatiGeneraliDocumento {
@@ -69,20 +68,20 @@ module ACube
               }
             }
           }
-        end
+        end.to_xml(save_with: 2)
+      end
 
-      private
-        def unitary_price
-          total_price / quantity
-        end
+    private
+      def unitary_price
+        total_price / quantity
+      end
 
-        def price_no_vat
-          total_price - vat_amount
-        end
+      def price_no_vat
+        total_price - vat_amount
+      end
 
-        def vat_amount
-          total_price * ACube.vat_amount
-        end
+      def vat_amount
+        total_price * ACube.vat_amount
       end
     end
   end

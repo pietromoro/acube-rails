@@ -17,8 +17,7 @@ module ACube
         end
 
         def to_xml
-          fragment = Nokogiri::XML::DocumentFragment.new(Nokogiri::XML::Document.new)
-          Nokogiri::XML::Builder.with(fragment) do |xml|
+          Nokogiri::XML::Builder.new do |xml|
             xml.CessionarioCommittente {
               xml.DatiAnagrafici {
                 xml.CodiceFiscale fiscal_code
@@ -42,7 +41,7 @@ module ACube
                 xml.Nazione nation
               }
             }
-          end
+          end.to_xml(save_with: 2)
         end
       end
     end

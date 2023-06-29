@@ -23,8 +23,8 @@ module ACube
                 xml.ProgressivoInvio progressive
                 xml.FormatoTrasmissione transmission_format
                 xml.CodiceDestinatario "0000000"
-                xml << supplier.to_xml.to_xml
-                xml << customer.to_xml.to_xml
+                xml << supplier.to_xml
+                xml << customer.to_xml
               }
             }
           end
