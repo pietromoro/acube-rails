@@ -19,7 +19,7 @@ module ACube
       end
 
       def to_xml
-        Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
+        Nokogiri::XML::Builder.new(encoding: 'UTF-8', namespace_inheritance:false) do |xml|
           xml["p"].FatturaElettronica(
             "versione" => header.transmission_format,
             "xmlns:ds" => "http://www.w3.org/2000/09/xmldsig#",
