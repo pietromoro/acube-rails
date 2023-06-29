@@ -2,7 +2,16 @@ module ACube
   module Support
     module Customer
       extend ActiveSupport::Concern
-      cattr_accessor(:customer_data) { {} }
+      cattr_reader :customer_data
+      
+      included do
+      protected
+        def self.as_customer(&block)
+          config = CustomerBuilder.new
+          yield(config)
+          @@customer_data = config.finalize.dup
+        end
+      end
 
       class CustomerBuilder
         @@attributes = ACube::Schema::Header::Customer.instance_methods.select {|m| m.ends_with?("=") && m.starts_with?(/\w/) }
@@ -22,15 +31,6 @@ module ACube
           else
             super 
           end
-        end
-      end
-
-      class_methods do
-      protected
-        def as_customer(&block)
-          config = CustomerBuilder.new
-          yield(config)
-          customer_data = config.finalize
         end
       end
 

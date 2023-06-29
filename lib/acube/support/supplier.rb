@@ -2,7 +2,16 @@ module ACube
   module Support
     module Supplier
       extend ActiveSupport::Concern
-      cattr_accessor(:supplier_data) { {} }
+      cattr_reader :supplier_data
+      
+      included do
+      protected
+        def self.as_supplier(&block)
+          config = SupplierBuilder.new
+          yield(config)
+          @@supplier_data = config.finalize.dup
+        end
+      end
 
       class SupplierBuilder
         @@attributes = ACube::Schema::Header::Supplier.instance_methods.select {|m| m.ends_with?("=") && m.starts_with?(/\w/) }
@@ -22,15 +31,6 @@ module ACube
           else
             super 
           end
-        end
-      end
-
-      class_methods do
-      protected
-        def as_supplier(&block)
-          config = SupplierBuilder.new
-          yield(config)
-          supplier_data = config.finalize
         end
       end
 

@@ -2,7 +2,16 @@ module ACube
   module Support
     class Transaction
       extend ActiveSupport::Concern
-      cattr_accessor(:transaction_data) { {} }
+      cattr_reader :transaction_data
+
+      included do
+      protected
+        def self.as_transaction(&block)
+          config = TransactionBuilder.new
+          yield(config)
+          @@transaction_data = config.finalize.dup
+        end
+      end
 
       class TransactionBuilder
         @@attributes = ACube::Schema::Body.instance_methods.select {|m| m.ends_with?("=") && m.starts_with?(/\w/) }
@@ -22,15 +31,6 @@ module ACube
           else
             super 
           end
-        end
-      end
-
-      class_methods do
-      protected
-        def as_transaction(&block)
-          config = TransactionBuilder.new
-          yield(config)
-          transaction_data = config.finalize
         end
       end
 
