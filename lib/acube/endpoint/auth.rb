@@ -15,7 +15,7 @@ module ACube
           Rails.cache.write(ACube.auth_token_cache_key, token, expires_in: 20.hours)
           return token
         else
-          raise "Login failed"
+          raise "Login failed: #{response.body} -- #{response.inspect}"
         end
       end
 

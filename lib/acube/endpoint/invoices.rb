@@ -10,7 +10,7 @@ module ACube
         if response.success?
           return JSON.parse(response.body)["uuid"]
         else
-          raise "Invoice creation failed"
+          raise "Invoice creation failed: #{response.body} -- #{response.inspect} "
         end
       end
 
@@ -24,7 +24,7 @@ module ACube
         if response.success?
           return StringIO.new(response.body)
         else
-          raise "Invoice download failed"
+          raise "Invoice download failed: #{response.body} -- #{response.inspect}"
         end
       end
     end
