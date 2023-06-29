@@ -42,9 +42,19 @@ module ACube
       invoice_record.update_column(:status, :downloaded)
     end
 
-    def self.update_invoice_status(invoice_id)
-      invoice_record = ACube::InvoiceRecord.find_by(webhook_uuid: invoice_id)
-      invoice_record.update_column(:status, notification["status"])
+    def self.update_invoice_status(webhook_body)
+      notification = JSON.parse(webhook_body, symbolize_names: true)
+      invoice_record = ACube::InvoiceRecord.find_by(webhook_uuid: notification[:notification][:invoice_uuid])
+
+      status = case notification[:notification][:type]
+      when "MC" then :not_received
+      when "AT" then :not_received
+      when "RC" then :delivered
+      when "NS" then :rejected
+      else :error
+      end
+
+      invoice_record.update_column(:status, status)
     end
 
   private
