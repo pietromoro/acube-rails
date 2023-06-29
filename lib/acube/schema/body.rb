@@ -7,6 +7,7 @@ module ACube
       attr_accessor :description
       attr_accessor :quantity
       attr_accessor :causal
+      attr_accessor :payment_max_date
       attr_reader :progressive
 
       def self.from(invoice)
@@ -64,7 +65,7 @@ module ACube
               xml.CondizioniPagamento "TP02"
               xml.DettaglioPagamento {
                 xml.ModalitaPagamento "MP05"
-                xml.DataScadenzaPagamento payment_max_date
+                xml.DataScadenzaPagamento payment_max_date.strftime("%Y-%m-%d")
                 xml.ImportoPagamento total_price
               }
             }
