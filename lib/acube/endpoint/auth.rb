@@ -5,7 +5,7 @@ module ACube
         response = connection.post do |req|
           req.url "/login"
           req.body = {
-            username: ACube.username,
+            email: ACube.username,
             password: ACube.password
           }.to_json
         end
