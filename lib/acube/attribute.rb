@@ -11,7 +11,7 @@ module ACube
 
           def publish_#{name}!(supplier, customer, format)
             builder = ACube::Invoicer.from(supplier: supplier, customer: customer, invoice: self, format: format)
-            builder.create_invoice("#{name}")
+            builder.create_invoice(self, "#{name}")
           end
 
           def #{name}?

@@ -8,7 +8,7 @@ module ACube
       new(supplier, customer, invoice, format)
     end
 
-    def create_invoice(name)
+    def create_invoice(invoice_base_record, name)
       progressive_val = ACube::InvoiceRecord.connection.execute("SELECT nextval('acube_invoice_records_progressive_seq') FROM acube_invoice_records_progressive_seq").first["nextval"]
       progressive_string = ACube.progressive_string.call(progressive_val)
       document.fill_with(transmission_format: @format, progressive: progressive_string)
