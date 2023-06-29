@@ -1,6 +1,9 @@
 module ACube
   module Schema
     class Body
+      DOCUMENT_KINDS = %w[TD01 TD02 TD03 TD04 TD05 TD06 TD16 TD17 TD18 TD19 TD20 TD21 TD22 TD23 TD24 TD25 TD26 TD27 TD28].freeze
+      PAYMENT_METHODS = %w[MP01 MP02 MP03 MP04 MP05 MP06 MP07 MP08 MP09 MP10 MP11 MP12 MP13 MP14 MP15 MP16 MP17 MP18 MP19 MP20 MP21 MP22 MP23].freeze
+
       attr_accessor :document_kind, :date
       attr_accessor :total_price
       attr_accessor :connected_progressive

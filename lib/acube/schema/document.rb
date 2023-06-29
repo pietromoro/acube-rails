@@ -1,6 +1,8 @@
 module ACube
   module Schema
     class Document
+      TRANSMISSION_FORMATS = %w[FPR12 FPA12].freeze
+      
       attr_accessor :body, :header
       attr_accessor :progressive, :transmission_format
 
