@@ -6,6 +6,7 @@ module ACube
       attr_accessor :connected_progressive
       attr_accessor :description
       attr_accessor :quantity
+      attr_accessor :causal
       attr_reader :progressive
 
       def self.from(invoice)
@@ -31,7 +32,7 @@ module ACube
                 xml.Data date.strftime("%Y-%m-%d")
                 xml.Numero progressive
                 xml.ImportoTotaleDocumento total_price
-                xml.Causale causal
+                xml.Causale causal if causal
               }
 
               if (document_kind == :TD01 || document_kind == :TD04)
