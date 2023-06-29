@@ -3,7 +3,7 @@ module ACube
     class Auth < CommonBase
       def login
         response = connection.post do |req|
-          req.url "/auth/login"
+          req.url "/login"
           req.body = {
             username: ACube.username,
             password: ACube.password
