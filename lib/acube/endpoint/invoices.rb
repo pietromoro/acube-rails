@@ -1,10 +1,10 @@
 module ACube
   module Endpoint
     class Invoices < ItApiBase
-      def create(invoice)
+      def create(invoice_xml)
         response = connection.post do |req|
           req.url "/invoices"
-          req.body = invoice
+          req.body = invoice_xmls
         end
 
         if response.success?
