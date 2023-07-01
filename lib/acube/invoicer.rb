@@ -28,7 +28,7 @@ module ACube
         uuid = ACube::Endpoint::Invoices.new.create(xml_body)
         invoice_record.update_column(:webhook_uuid, uuid)
       rescue => e
-        invoice_record.update_column(:status, :error)
+        invoice_record.update_column(:status, :creation_error)
         raise e
       end
     end
@@ -51,7 +51,7 @@ module ACube
       when "AT" then :not_received
       when "RC" then :delivered
       when "NS" then :rejected
-      else :error
+      else :notification_error
       end
 
       invoice_record.update_column(:status, status)
