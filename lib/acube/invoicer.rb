@@ -74,8 +74,9 @@ module ACube
       invoice_record.update_column(:json_body, json_body)
       
       downloaded_pdf = ACube::Endpoint::Invoices.new.download(invoice_id)
-      invoice_record.pdf.attach(io: downloaded_pdf, filename: "invoice.pdf")
-      invoice_record.update_column(:status, :downloaded)
+      invoice_record.pdf.attach(io: downloaded_pdf, filename: "#{invoice_id}-invoice.pdf", content_type: 'application/pdf')
+      invoice_record.status = :downloaded
+      invoice_record.save!
     end
 
     def self.update_invoice_status(webhook_body)
