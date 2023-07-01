@@ -33,6 +33,42 @@ module ACube
       end
     end
 
+    def regenerate_invoice(invoice_record_id, also_send: false)
+      invoice_record = ACube::InvoiceRecord.find(invoice_record_id)
+      raise "This Invoice was already sent to ACube" if invoice_record.status != "creation_error"
+
+      document.fill_with(transmission_format: invoice_record.format, progressive: invoice_record.progressive)
+      xml_body = document.to_xml
+
+      invoice_record.update_columns(
+        status: :created,
+        xml_body: xml_body,
+      )
+
+      if also_send
+        begin
+          uuid = ACube::Endpoint::Invoices.new.create(xml_body)
+          invoice_record.update_column(:webhook_uuid, uuid)
+        rescue => e
+          invoice_record.update_column(:status, :creation_error)
+          raise e
+        end
+      end
+    end
+
+    def self.retry_invoice_sending(invoice_record_id)
+      invoice_record = ACube::InvoiceRecord.find(invoice_record_id)
+      raise "This Invoice was already sent to ACube" if invoice_record.status != "creation_error"
+
+      begin
+        uuid = ACube::Endpoint::Invoices.new.create(invoice_record.xml_body)
+        invoice_record.update_column(:webhook_uuid, uuid)
+      rescue => e
+        invoice_record.update_column(:status, :creation_error)
+        raise e
+      end
+    end
+
     def self.udate_invoice_attributes(invoice_id, json_body)
       invoice_record = ACube::InvoiceRecord.find_by(webhook_uuid: invoice_id)
       invoice_record.update_column(:json_body, json_body)
