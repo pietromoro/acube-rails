@@ -79,7 +79,9 @@ module ACube
 
     private
       def unitary_price
-        total_price / quantity
+        unitary = total_price / quantity
+        unitary_vat = unitary * ACube.vat_amount
+        unitary - unitary_vat
       end
 
       def price_no_vat
