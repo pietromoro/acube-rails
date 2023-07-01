@@ -18,7 +18,7 @@ module ACube
         response = connection.get do |req|
           req.url "/invoices/#{uuid}"
           req.headers['Content-Type'] = 'application/pdf'
-          req.headers['X-PrintTheme'] = 'standard'
+          req.headers['X-PrintTheme'] = ACube.invoice_print_theme || 'standard'
         end
 
         if response.success?
