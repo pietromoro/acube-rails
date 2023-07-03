@@ -3,6 +3,8 @@ require 'faraday'
 module ACube
   module Endpoint
     class ItApiBase
+      class UnauthorizedError < StandardError; end
+      
       attr_reader :connection
 
       def initialize
