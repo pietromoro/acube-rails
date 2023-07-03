@@ -23,6 +23,11 @@ module ACube
         Rails.cache.delete(ACube.auth_token_cache_key)
       end
 
+      def refresh_token
+        logout
+        login
+      end
+
       def token!
         Rails.cache.fetch(ACube.auth_token_cache_key) do
           login
