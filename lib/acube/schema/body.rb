@@ -51,16 +51,16 @@ module ACube
               xml.DettaglioLinee {
                 xml.NumeroLinea 1
                 xml.Descrizione description
-                xml.Quantita ("%f" % quantity.to_f)
-                xml.PrezzoUnitario ("%f" % unitary_price.to_f)
-                xml.PrezzoTotale ("%f" % price_no_vat.to_f)
+                xml.Quantita ("%06.2f" % quantity.to_f)
+                xml.PrezzoUnitario ("%06.2f" % unitary_price.to_f)
+                xml.PrezzoTotale ("%06.2f" % price_no_vat.to_f)
                 xml.AliquotaIVA ("%.2f" % (ACube.vat_amount * 100).to_f)
               }
 
               xml.DatiRiepilogo {
                 xml.AliquotaIVA ("%.2f" % (ACube.vat_amount * 100).to_f)
-                xml.ImponibileImporto ("%f" % price_no_vat.to_f)
-                xml.Imposta ("%f" % vat_amount.to_f)
+                xml.ImponibileImporto ("%06.2f" % price_no_vat.to_f)
+                xml.Imposta ("%06.2f" % vat_amount.to_f)
                 xml.EsigibilitaIVA "I"
               }
             }
@@ -70,7 +70,7 @@ module ACube
               xml.DettaglioPagamento {
                 xml.ModalitaPagamento payment_method
                 xml.DataScadenzaPagamento payment_max_date.strftime("%Y-%m-%d")
-                xml.ImportoPagamento ("%f" % total_price.to_f)
+                xml.ImportoPagamento ("%06.2f" % total_price.to_f)
               }
             }
           }
