@@ -39,16 +39,12 @@ module ACube
 
       document.fill_with(transmission_format: invoice_record.format, progressive: invoice_record.progressive)
       xml_body = document.to_xml
-
-      invoice_record.update_columns(
-        status: :created,
-        xml_body: xml_body,
-      )
+      invoice_record.update_column(:xml_body, xml_body)
 
       if also_send
         begin
           uuid = ACube::Endpoint::Invoices.new.create(xml_body)
-          invoice_record.update_column(:webhook_uuid, uuid)
+          invoice_record.update_columns(webhook_uuid: uuid, status: :created)
         rescue => e
           invoice_record.update_column(:status, :creation_error)
           raise e
@@ -62,7 +58,7 @@ module ACube
 
       begin
         uuid = ACube::Endpoint::Invoices.new.create(invoice_record.xml_body)
-        invoice_record.update_column(:webhook_uuid, uuid)
+        invoice_record.update_columns(webhook_uuid: uuid, status: :created)
       rescue => e
         invoice_record.update_column(:status, :creation_error)
         raise e
