@@ -35,7 +35,7 @@ module ACube
 
     def regenerate_invoice(invoice_record_id, also_send: false)
       invoice_record = ACube::InvoiceRecord.find(invoice_record_id)
-      raise "This Invoice was already sent to ACube" if invoice_record.status != "creation_error" || invoice_record.status != "rejected"
+      raise "This Invoice was already sent to ACube" if invoice_record.status != "creation_error" && invoice_record.status != "rejected"
 
       document.fill_with(transmission_format: invoice_record.format, progressive: invoice_record.progressive)
       xml_body = document.to_xml
@@ -58,7 +58,7 @@ module ACube
 
     def self.retry_invoice_sending(invoice_record_id)
       invoice_record = ACube::InvoiceRecord.find(invoice_record_id)
-      raise "This Invoice was already sent to ACube" if invoice_record.status != "creation_error" || invoice_record.status != "rejected"
+      raise "This Invoice was already sent to ACube" if invoice_record.status != "creation_error" && invoice_record.status != "rejected"
 
       begin
         uuid = ACube::Endpoint::Invoices.new.create(invoice_record.xml_body)
