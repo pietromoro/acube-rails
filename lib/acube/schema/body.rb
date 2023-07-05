@@ -36,7 +36,7 @@ module ACube
                 xml.Divisa "EUR"
                 xml.Data date.strftime("%Y-%m-%d")
                 xml.Numero progressive
-                xml.ImportoTotaleDocumento total_price
+                xml.ImportoTotaleDocumento ("%06.2f" % total_price.to_f)
                 xml.Causale causal if causal
               }
 
