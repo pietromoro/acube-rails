@@ -16,13 +16,13 @@ module ACube
       sql = if update
         "SELECT (nextval('acube_invoice_records_progressive_seq')) AS val FROM acube_invoice_records_progressive_seq"
       else
-        "SELECT (currval('acube_invoice_records_progressive_seq') + i.inc) AS val FROM (SELECT seqincrement AS inc FROM pg_sequence WHERE seqrelid = 'acube_invoice_records_progressive_seq'::regclass::oid) AS i"
+        "SELECT (last_value + i.inc) AS val FROM acube_invoice_records_progressive_seq, (SELECT seqincrement AS inc FROM pg_sequence WHERE seqrelid = 'acube_invoice_records_progressive_seq'::regclass::oid) AS i"
       end
       self.connection.execute(sql).first["val"]
     end
 
     def self.get_current_progressive
-        self.connection.execute("SELECT currval('acube_invoice_records_progressive_seq') FROM acube_invoice_records_progressive_seq").first["currval"]
+        self.connection.execute("SELECT last_value FROM acube_invoice_records_progressive_seq").first["last_value"]
     end
 
     def self.reset_progressive
