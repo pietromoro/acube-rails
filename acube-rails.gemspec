@@ -23,5 +23,6 @@ Gem::Specification.new do |spec|
   end
 
   spec.add_dependency "rails", ">= 7.0.0"
+  spec.add_dependency "pg", ">= 1.0"
   spec.add_dependency 'faraday', '~> 2.7', '>= 2.7.6'
 end
