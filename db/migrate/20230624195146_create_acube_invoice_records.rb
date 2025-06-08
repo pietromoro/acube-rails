@@ -28,11 +28,20 @@ class CreateACubeInvoiceRecords < ActiveRecord::Migration[7.0]
     execute <<-SQL
       CREATE SEQUENCE acube_invoice_records_progressive_seq START 1 INCREMENT 1 OWNED BY acube_invoice_records.progressive;
     SQL
+
+    ACube::Schema::Body::DOCUMENT_KINDS.each do |kind|
+      execute <<-SQL
+        CREATE SEQUENCE acube_invoice_records_progressive_#{kind}_seq START 1 INCREMENT 1 OWNED BY acube_invoice_records.progressive;
+      SQL
+    end
   end
   
   def down
     drop_table :acube_invoice_records
     execute "DROP SEQUENCE IF EXISTS acube_invoice_records_progressive_seq;"
+    ACube::Schema::Body::DOCUMENT_KINDS.each do |kind|
+      execute "DROP SEQUENCE IF EXISTS acube_invoice_records_progressive_#{kind}_seq;"
+    end
   end
 
 private

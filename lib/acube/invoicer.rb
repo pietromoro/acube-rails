@@ -8,8 +8,11 @@ module ACube
       new(supplier, customer, invoice, format)
     end
 
-    def create_invoice(invoice_base_record, name)
-      progressive_string = ACube.progressive_string.call(ACube::InvoiceRecord.get_progressive)
+    def create_invoice(invoice_base_record, name, progressive_uses_variant: true)
+      variant = progressive_uses_variant ? invoice.document_kind : nil
+      progressive = ACube::InvoiceRecord.get_progressive(variant: variant)
+      progressive_string = ACube.progressive_string.call(progressive, variant: variant)
+
       document.fill_with(transmission_format: @format, progressive: progressive_string)
       xml_body = document.to_xml
 

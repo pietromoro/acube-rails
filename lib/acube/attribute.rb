@@ -9,9 +9,9 @@ module ACube
             invoice_record_#{name} || build_invoice_record_#{name}
           end
 
-          def publish_#{name}!(supplier, customer, format)
+          def publish_#{name}!(supplier, customer, format, progressive_uses_variant: true)
             builder = ACube::Invoicer.from(supplier: supplier, customer: customer, invoice: self, format: format)
-            builder.create_invoice(self, "#{name}")
+            builder.create_invoice(self, "#{name}", progressive_uses_variant: progressive_uses_variant)
           end
 
           def #{name}?
