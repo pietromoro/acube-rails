@@ -26,7 +26,7 @@ module ACube
 
               if vat_exemption
                 raise "Unknown VAT exemption code" unless VAT_EXEMPTIONS.include? vat_exemption
-                xml.PrezzoUnitario ("%.2f" % total.to_f)
+                xml.PrezzoUnitario ("%.2f" % (total.to_f / quantity.to_f).to_f)
                 xml.PrezzoTotale ("%.2f" % total.to_f)
                 xml.AliquotaIVA ("0.00")
                 xml.Natura (vat_exemption.to_s)
